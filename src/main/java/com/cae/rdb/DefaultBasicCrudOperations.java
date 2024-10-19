@@ -49,12 +49,23 @@ public abstract class DefaultBasicCrudOperations<T extends TableSchema<I>, I> im
     private String entityName;
     @Getter(AccessLevel.PROTECTED)
     private Class<I> identifierType;
-    @Getter(AccessLevel.PROTECTED)
+
     protected SessionFactory sessionFactory;
+
+    protected SessionFactory getSessionFactoryOrThrow(){
+        return Optional.ofNullable(this.sessionFactory)
+                .orElseThrow(() -> new InternalMappedException(
+                        "Problem during attempt to open a new session",
+                        "The session factory was null. " +
+                        "This is probably because the CaeRdbConnectionFactory wasn't instantiated nor executed. " +
+                        "You gotta implement the factory mentioned and execute its API, " +
+                        "this way every repository instance of your application gets the instance of the session factory and new sessions can be managed."
+                ));
+    }
 
     @Override
     public T createNew(T instance) {
-        try (var session = HibernateConfigBootstrap.SESSION_FACTORY.openSession()){
+        try (var session = this.getSessionFactoryOrThrow().openSession()){
             Transaction transaction = null;
             try{
                 transaction = session.beginTransaction();
@@ -74,7 +85,7 @@ public abstract class DefaultBasicCrudOperations<T extends TableSchema<I>, I> im
 
     @Override
     public void deleteById(I primaryKey) {
-        try (var session = HibernateConfigBootstrap.SESSION_FACTORY.openSession()){
+        try (var session = this.getSessionFactoryOrThrow().openSession()){
             Transaction transaction = null;
             try{
                 transaction = session.beginTransaction();
@@ -94,7 +105,7 @@ public abstract class DefaultBasicCrudOperations<T extends TableSchema<I>, I> im
 
     @Override
     public Optional<T> findById(I primaryKey) {
-        try (var session = HibernateConfigBootstrap.SESSION_FACTORY.openSession()){
+        try (var session = this.getSessionFactoryOrThrow().openSession()){
             Transaction transaction = null;
             try{
                 transaction = session.beginTransaction();
@@ -118,7 +129,7 @@ public abstract class DefaultBasicCrudOperations<T extends TableSchema<I>, I> im
 
     @Override
     public List<T> retrieveAll() {
-        try (var session = HibernateConfigBootstrap.SESSION_FACTORY.openSession()){
+        try (var session = this.getSessionFactoryOrThrow().openSession()){
             Transaction transaction = null;
             try{
                 var hql = "FROM " + this.entityName;
@@ -138,7 +149,7 @@ public abstract class DefaultBasicCrudOperations<T extends TableSchema<I>, I> im
 
     @Override
     public Page<T> retrievePaginated(Integer pageNumber, Integer pageSize) {
-        try (var session = HibernateConfigBootstrap.SESSION_FACTORY.openSession()){
+        try (var session = this.getSessionFactoryOrThrow().openSession()){
             Transaction transaction = null;
             try{
                 var selectHql = "FROM " + this.entityName;
@@ -163,7 +174,7 @@ public abstract class DefaultBasicCrudOperations<T extends TableSchema<I>, I> im
 
     @Override
     public void update(T instanceToUpdate) {
-        try (var session = HibernateConfigBootstrap.SESSION_FACTORY.openSession()){
+        try (var session = this.getSessionFactoryOrThrow().openSession()){
             Transaction transaction = null;
             try{
                 transaction = session.beginTransaction();

@@ -6,9 +6,9 @@
     <name>cae-rdb</name>
     <description>Library for relational-database integration</description>
     <url>https://github.com/clean-arch-enablers-project/cae-rdb/blob/main/README.md</url>
-    <groupId>com.cae</groupId>
+    <groupId>com.clean-arch-enablers</groupId>
     <artifactId>cae-rdb</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
     <licenses>
         <license>
