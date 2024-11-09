@@ -124,7 +124,7 @@ public abstract class DefaultBasicCrudOperations<T extends TableSchema<I>, I> im
 
     @Override
     public Boolean existsById(I id){
-        return Optional.ofNullable(this.findById(id)).isPresent();
+        return this.findById(id).isPresent();
     }
 
     @Override

@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HikariDataSourceFactory {
 
-    public static HikariDataSource createDataSource(){
-        var hikariConfig = HikariConfigBootstrap.createHikariConfig();
+    public static HikariDataSource createDataSourceBasedOn(CaeRdbConnectionFactory caeRdbConnectionFactory){
+        var hikariConfig = HikariConfigBootstrap.createHikariConfigBasedOn(caeRdbConnectionFactory);
         return new HikariDataSource(hikariConfig);
     }
 

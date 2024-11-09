@@ -8,7 +8,7 @@
     <url>https://github.com/clean-arch-enablers-project/cae-rdb/blob/main/README.md</url>
     <groupId>com.clean-arch-enablers</groupId>
     <artifactId>cae-rdb</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <packaging>jar</packaging>
     <licenses>
         <license>
@@ -59,11 +59,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.clean-arch-enablers</groupId>
-            <artifactId>env-vars</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>5.0.1</version>
@@ -82,6 +77,11 @@
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
             <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.clean-arch-enablers</groupId>
+            <artifactId>mapped-exceptions</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
     <profiles>
