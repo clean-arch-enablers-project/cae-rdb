@@ -2,13 +2,13 @@ package com.cae.rdb;
 
 
 import com.cae.mapped_exceptions.specifics.InternalMappedException;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityTransaction;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityTransaction;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
